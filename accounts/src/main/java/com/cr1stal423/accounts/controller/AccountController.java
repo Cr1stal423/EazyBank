@@ -105,7 +105,7 @@ public class AccountController {
         if (isUpdated){
             return ResponseEntity
                     .status(HttpStatus.OK)
-                    .body(new ResponseDto(AccountsConstants.STATUS_200,AccountsConstants.STATUS_200));
+                    .body(new ResponseDto(AccountsConstants.STATUS_200,AccountsConstants.MESSAGE_200));
         }
         return ResponseEntity
                 .status(HttpStatus.EXPECTATION_FAILED)
