@@ -1,0 +1,17 @@
+server:
+  port: ${SERVER_PORT:8090}
+
+spring:
+  datasource:
+    url: ${DATABASE_URL:jdbc:h2:mem:testdb}
+    username: ${DATABASE_USERNAME:sa}
+    password: ${DATABASE_PASSWORD:}
+    driver-class-name: ${DRIVE_CLASS_NAME:org.h2.Driver}
+  h2:
+    console:
+      enabled: ${ENABLE_H2_CONSOLE:true}
+  jpa:
+    database-platform: ${JPA_DATABASE_PLATFORM:org.hibernate.dialect.H2Dialect}
+    hibernate:
+      ddl-auto: ${HIBERNATE_DDL_AUTO:update}
+    show-sql: ${JPA_SHOW_SQL:true}
