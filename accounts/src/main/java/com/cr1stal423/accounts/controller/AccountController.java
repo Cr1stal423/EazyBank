@@ -1,6 +1,7 @@
 package com.cr1stal423.accounts.controller;
 
 import com.cr1stal423.accounts.constants.AccountsConstants;
+import com.cr1stal423.accounts.dto.AccountContactInfoDto;
 import com.cr1stal423.accounts.dto.CustomerDto;
 import com.cr1stal423.accounts.dto.ErrorResponseDto;
 import com.cr1stal423.accounts.dto.ResponseDto;
@@ -12,7 +13,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,9 +25,17 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(value = "/api",produces = {MediaType.APPLICATION_JSON_VALUE})
 @Valid
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class AccountController {
+
     private IAccountService iAccountService;
+
+    @Value("${build.version}")
+    private String buildVersion;
+    @Autowired
+    private AccountContactInfoDto accountContactInfoDto;
+    @Autowired
+    private Environment environment;
 
     @Operation(
             summary = "Create Account REST API",
@@ -146,5 +158,24 @@ public class AccountController {
         return ResponseEntity
                 .status(HttpStatus.EXPECTATION_FAILED)
                 .body(new ResponseDto(AccountsConstants.STATUS_417,AccountsConstants.MESSAGE_417_DELETE));
+    }
+    @GetMapping("/build-info")
+    public ResponseEntity<String> fetchBuildVersion(){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(buildVersion);
+    }
+    @GetMapping("/java-version")
+    public ResponseEntity<String> fetchJavaVersion(){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(environment.getProperty("JAVA_HOME"));
+    }
+    @GetMapping("/contact-info")
+    public ResponseEntity<Object> fetchContactInfo(){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(accountContactInfoDto);
+
     }
 }
