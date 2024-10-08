@@ -79,7 +79,7 @@ public class CardsServiceImpl implements ICardsService {
      * @return boolean indicating if the delete of card details is successful or not
      */
     @Override
-    public boolean deleteCard(String mobileNumber) {
+    public boolean  deleteCard(String mobileNumber) {
         boolean isDeleted = true;
         Cards optionalCard = cardsRepository.findCardsByMobileNumber(mobileNumber).orElseThrow(
                 () -> new ResourceNotFoundException("Card","mobileNumber", mobileNumber)

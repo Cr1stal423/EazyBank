@@ -1,6 +1,7 @@
 package com.cr1stal423.cards.controller;
 
 import com.cr1stal423.cards.constants.CardsConstants;
+import com.cr1stal423.cards.dto.CardContactInfoDto;
 import com.cr1stal423.cards.dto.CardsDto;
 import com.cr1stal423.cards.dto.ErrorResponseDto;
 import com.cr1stal423.cards.dto.ResponseDto;
@@ -13,6 +14,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,9 +26,18 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "/api", produces = {MediaType.APPLICATION_JSON_VALUE})
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Validated
 public class CardController {
+
+    @Value("${build.version}")
+    private String buildVersion;
+    @Autowired
+    private final Environment environment;
+
+    @Autowired
+    public CardContactInfoDto cardContactInfoDto;
+
 
     private ICardsService iCardsService;
     @Operation(
@@ -151,6 +165,25 @@ public class CardController {
         return ResponseEntity
                 .status(HttpStatus.EXPECTATION_FAILED)
                 .body(new ResponseDto(CardsConstants.STATUS_417,CardsConstants.MESSAGE_417_UPDATE));
+    }
+
+    @GetMapping("/build-info")
+    public ResponseEntity<String> fetchBuildVersion(){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(buildVersion);
+    }
+    @GetMapping("/java-version")
+    public ResponseEntity<String> fetchJavaVersion(){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(environment.getProperty("JAVA_HOME"));
+    }
+    @GetMapping("/contact-info")
+    public ResponseEntity<Object> fetchContactInfo(){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(cardContactInfoDto);
     }
 
 }
