@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: ${APPLICATION_NAME:accounts}
   datasource:
     url: ${DATABASE_URL:jdbc:h2:mem:testdb}
     driverClassName: ${DRIVER_CLASS_NAME:org.h2.Driver}
@@ -11,23 +13,12 @@ spring:
     database-platform: ${JPA_DATABASE_PLATFORM:org.hibernate.dialect.H2Dialect}
   hibernate:
     ddl-auto: ${HIBERNATE_DDL_AUTO:update}
-  config:
-    import:
-      - "application_qa.yml"
-      - "application_prod.yml"
   profiles:
-    active: "default"
+    active: "prod"
+  config:
+    import: ${CONFIG_IMPORT:optional:configserver:http://localhost:8071/}
 server:
   port: ${SERVER_PORT:8080}
 
-build:
-  version: ${BULD_VERSION:3.0.0}
 
-accounts:
-  message: "Welcome to EazyBank accounts related local APIs "
-  contactDetails:
-    name: "Cr1stal423 - Developer"
-    email: "tutor@eazybank.com"
-  onCallSupport:
-    - (555) 555-1234
-    - (555) 523-1345
+

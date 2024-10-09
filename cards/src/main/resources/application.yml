@@ -1,6 +1,8 @@
 server:
   port: ${SERVER_PORT:9000}
 spring:
+  application:
+    name: ${APPLICATION_NAME:cards}
   datasource:
     url: ${SPRING_DATASOURCE_URL:jdbc:h2:mem:testdb}
     username: ${SPRING_DATASOURCE_USERNAME:sa}
@@ -9,27 +11,12 @@ spring:
   h2:
     console:
       enabled: ${ENABLE_H2_CONSOLE:true}
-  config:
-    import:
-      - "application_qa.yml"
-      - "application_prod.yml"
   profiles:
-    active: "default"
+    active: "prod"
   jpa:
     database-platform: ${DATABASE_PLATFORM:org.hibernate.dialect.H2Dialect}
     hibernate:
       ddl-auto: ${HIBERNATE_DDL_AUTO:update}
     show-sql: ${JPA_SHOW_SQL:true}
-
-
-build:
-  version: ${BULD_VERSION:3.0.0}
-
-cards:
-  message: "Welcome to EazyBank accounts related local APIs "
-  contactDetails:
-    name: "Cr1stal423 - Developer"
-    email: "tutor@eazybank.com"
-  onCallSupport:
-    - (555) 555-1234
-    - (555) 523-1345
+  config:
+    import: ${CONFIG_IMPORT:optional:configserver:http://localhost:8071/}

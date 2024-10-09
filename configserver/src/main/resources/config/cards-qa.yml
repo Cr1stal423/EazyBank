@@ -1,13 +1,8 @@
-spring:
-  config:
-    activate:
-      on-profile: "qa"
-
 build:
   version: "2.0"
 
 
-accounts:
+cards:
   message: "Welcome to EazyBank accounts related QA APIs "
   contactDetails:
     name: "Cr1stal4231 - QA Lead"

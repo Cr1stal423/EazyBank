@@ -1,0 +1,11 @@
+build:
+  version: ${BULD_VERSION:3.0.0}
+
+accounts:
+  message: "Welcome to EazyBank accounts related local APIs "
+  contactDetails:
+    name: "Cr1stal423 - Developer"
+    email: "tutor@eazybank.com"
+  onCallSupport:
+    - (555) 555-1234
+    - (555) 523-1345

@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: ${APPLICATION_NAME:configserver}
+  profiles:
+    active: ${ACTIVE_PROFILE:native}
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: ${PROFILE_SEARCH_LOCATION:classpath:/config}
+server:
+  port: ${SERVER_PORT:8071}

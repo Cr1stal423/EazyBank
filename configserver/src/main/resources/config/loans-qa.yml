@@ -1,0 +1,11 @@
+build:
+  version: "2.0"
+
+loans:
+  message: "Welcome to EazyBank loans related QA APIs "
+  contactDetails:
+    name: "Cr1stal4231 - QA Lead"
+    email: "tutor@eazybank.com"
+  onCallSupport:
+    - (785) 545-6565
+    - (853) 546-3467
