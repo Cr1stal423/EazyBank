@@ -20,3 +20,14 @@ spring:
     show-sql: ${JPA_SHOW_SQL:true}
   config:
     import: ${CONFIG_IMPORT:optional:configserver:http://localhost:8071/}
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

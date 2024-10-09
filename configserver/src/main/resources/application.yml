@@ -2,11 +2,29 @@ spring:
   application:
     name: ${APPLICATION_NAME:configserver}
   profiles:
-    active: ${ACTIVE_PROFILE:native}
+    active: ${ACTIVE_PROFILE:git}
   cloud:
     config:
       server:
-        native:
-          search-locations: ${PROFILE_SEARCH_LOCATION:classpath:/config}
+        git:
+          uri: ${GIT_URI:https://github.com/Cr1stal423/eazybank-config.git}
+          default-label: ${DEFAULT_LABEL:master}
+          timeout: ${TIMEOUT:5}
+          clone-on-start: ${CLONE_ON_START:true}
+          force-pull: ${FORCE_PULL:true}
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
 server:
   port: ${SERVER_PORT:8071}
+
+encrypt:
+  key: ${ENCRYPT_KEY:GHIUJVIUB8543GFJN64F431DYB3}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
