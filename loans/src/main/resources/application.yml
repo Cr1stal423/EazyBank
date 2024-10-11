@@ -5,20 +5,19 @@ spring:
   application:
     name: ${APPLICATION_NAME:loans}
   datasource:
-    url: ${DATABASE_URL:jdbc:h2:mem:testdb}
-    username: ${DATABASE_USERNAME:sa}
-    password: ${DATABASE_PASSWORD:}
-    driver-class-name: ${DRIVE_CLASS_NAME:org.h2.Driver}
-  h2:
-    console:
-      enabled: ${ENABLE_H2_CONSOLE:true}
+    url: ${DATABASE_URL:jdbc:mysql://localhost:3309/loansdb}
+    username: ${SPRING_DATASOURCE_USERNAME:root}   
+    password: ${SPRING_DATASOURCE_PASSWORD:Sqlwer}
   profiles:
     active: "prod"
   jpa:
-    database-platform: ${JPA_DATABASE_PLATFORM:org.hibernate.dialect.H2Dialect}
     hibernate:
       ddl-auto: ${HIBERNATE_DDL_AUTO:update}
     show-sql: ${JPA_SHOW_SQL:true}
+
+  sql:
+    init:
+      mode: always
   config:
     import: ${CONFIG_IMPORT:optional:configserver:http://localhost:8071/}
   rabbitmq:

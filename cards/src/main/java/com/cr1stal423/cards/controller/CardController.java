@@ -38,7 +38,7 @@ public class CardController {
     @Autowired
     public CardContactInfoDto cardContactInfoDto;
 
-
+    @Autowired
     private ICardsService iCardsService;
     @Operation(
             summary = "Create Card REST API",

@@ -4,20 +4,18 @@ spring:
   application:
     name: ${APPLICATION_NAME:cards}
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:h2:mem:testdb}
-    username: ${SPRING_DATASOURCE_USERNAME:sa}
-    password: ${SPRING_DATASOURCE_PASSWORD:}
-    driver-class-name: ${SPRING_DATASOURCE_DRIVER:org.h2.Driver}
-  h2:
-    console:
-      enabled: ${ENABLE_H2_CONSOLE:true}
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3307/cardsdb}
+    username: ${SPRING_DATASOURCE_USERNAME:root}
+    password: ${SPRING_DATASOURCE_PASSWORD:Sqlwer}
   profiles:
     active: "prod"
   jpa:
-    database-platform: ${DATABASE_PLATFORM:org.hibernate.dialect.H2Dialect}
     hibernate:
       ddl-auto: ${HIBERNATE_DDL_AUTO:update}
     show-sql: ${JPA_SHOW_SQL:true}
+  sql:
+    init:
+      mode: always
   config:
     import: ${CONFIG_IMPORT:optional:configserver:http://localhost:8071/}
   rabbitmq:

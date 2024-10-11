@@ -25,9 +25,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(value = "/api",produces = {MediaType.APPLICATION_JSON_VALUE})
 @Valid
-@RequiredArgsConstructor
 public class AccountController {
-
+    @Autowired
     private IAccountService iAccountService;
 
     @Value("${build.version}")

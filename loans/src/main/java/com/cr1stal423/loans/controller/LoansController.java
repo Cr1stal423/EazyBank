@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class LoansController {
 
+    @Autowired
     private final ILoansService iLoansService;
 
     @Value("${build.version}")

@@ -2,17 +2,16 @@ spring:
   application:
     name: ${APPLICATION_NAME:accounts}
   datasource:
-    url: ${DATABASE_URL:jdbc:h2:mem:testdb}
-    driverClassName: ${DRIVER_CLASS_NAME:org.h2.Driver}
-    username: ${DATABASE_USERNAME:sa}
-    password: ${DATABASE_PASSWORD:}
-  h2:
-    console:
-      enabled: ${H2_CONSOLE_ENABLED:true}
+    url: ${DATABASE_URL:jdbc:mysql://localhost:3306/accountsdb}
+    username: ${SPRING_DATASOURCE_USERNAME:root}
+    password: ${SPRING_DATASOURCE_PASSWORD:Sqlwer}
   jpa:
-    database-platform: ${JPA_DATABASE_PLATFORM:org.hibernate.dialect.H2Dialect}
-  hibernate:
-    ddl-auto: ${HIBERNATE_DDL_AUTO:update}
+    hibernate:
+      ddl-auto: ${HIBERNATE_DDL_AUTO:update}
+    show-sql: ${JPA_SHOW_SQL:true}
+  sql:
+    init:
+      mode: always
   profiles:
     active: "prod"
   config:
