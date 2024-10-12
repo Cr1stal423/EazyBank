@@ -25,14 +25,28 @@ services:
     environment:
       SPRING_RABBITMQ_HOST: "rabbitmq"
 
+  eurekaserver-base-config:
+    extends:
+      service: network-deploy-service
+    deploy:
+      resources:
+        limits:
+          memory: 800m
+    environment:
+      SPRING_APPLICATION_NAME: "eurekaserver"
+      SPRING_CONFIG_IMPORT: configserver:http://configserver:8071/
+
   microservice-configserver-config:
     extends:
       service: microservice-base-config
     depends_on:
       configserver:
         condition: service_healthy
+      eurekaserver:
+        condition: service_healthy
     environment:
-      SPRING_CONFIG_IMPORT: configserver:http://configserver:8071
+      SPRING_CONFIG_IMPORT: configserver:http://configserver:8071/
       SPRING_PROFILES_ACTIVE: default
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: Sqlwer
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8070/eureka/

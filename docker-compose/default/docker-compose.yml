@@ -1,4 +1,5 @@
 services:
+  
   accountsdb:
     container_name: "accountsdb"
     ports:
@@ -46,8 +47,8 @@ services:
       service: network-deploy-service
 
   configserver:
-    image: "cr1stal423/configserver:v7"
-    container_name: "configserver"
+    image: "cr1stal423/configserver:v8"
+    container_name: "configserver-ms"
     ports:
       - "8071:8071"
     depends_on:
@@ -62,9 +63,26 @@ services:
     extends:
       file: common-config.yml
       service: microservice-base-config
+  eurekaserver:
+    image: "cr1stal423/eurekaserver:v8"
+    container_name: "eurekaserver-ms"
+    ports:
+      - "8070:8070"
+    healthcheck:
+      test: "curl --fail --silent localhost:8070/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    extends:
+      file: common-config.yml
+      service: eurekaserver-base-config
+    depends_on:
+      configserver:
+        condition: service_healthy
 
   accounts:
-    image: "cr1stal423/accounts:v7"
+    image: "cr1stal423/accounts:v8"
     container_name: "accounts-ms"
     ports:
       - "8080:8080"
@@ -80,7 +98,7 @@ services:
 
 
   loans:
-    image: "cr1stal423/loans:v7"
+    image: "cr1stal423/loans:v8"
     container_name: "loans-ms"
     ports:
       - "8090:8090"
@@ -96,7 +114,7 @@ services:
 
 
   cards:
-    image: "cr1stal423/cards:v7"
+    image: "cr1stal423/cards:v8"
     container_name: "cards-ms"
     ports:
       - "9000:9000"
