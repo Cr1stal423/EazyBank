@@ -55,3 +55,9 @@ info:
     name: "loans"
     description: "Eazy Bank Loans Microservice"
     version: "1.0.0"
+
+logging:
+  level:
+    com:
+      cr1stal423:
+        loans: DEBUG
