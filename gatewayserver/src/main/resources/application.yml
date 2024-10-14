@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: ${SPRING_APPLICATION_NAME:gatewayserver}
+  config:
+    import: ${SPRING_CONFIG_IMPORT:optional:configserver:http://localhost:8071/}
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: ${MANAGEMENT_EXPOSURE_INCLUDE:*}
+  endpoint:
+    gateway:
+      enabled: true
+  info:
+    env:
+      enabled: true
+
+info:
+  title: ${INFO_TITLE:gatewayserver}
+  version: ${INFO_VERSION:1.0.0}
+  description: ${INFO_DESCRIPTION:Eazy Bank Gateway Server application}
+
+logging:
+  level:
+    com:
+      cr1stal423:
+        gatewayserver: DEBUG
+
