@@ -88,15 +88,15 @@ services:
     extends:
       file: common-config.yml
       service: microservice-configserver-config
+    depends_on:
+      accountsdb:
+        condition: service_healthy
     healthcheck:
       test: "curl --fail --silent localhost:8080/actuator/health/readiness | grep UP || exit 1"
       interval: 10s
       timeout: 5s
       retries: 10
       start_period: 10s
-    depends_on:
-      accountsdb:
-        condition: service_healthy
     environment:
       SPRING_APPLICATION_NAME: accounts
       SPRING_DATASOURCE_URL: jdbc:mysql://accountsdb:3306/accountsdb
@@ -110,15 +110,15 @@ services:
     extends:
       file: common-config.yml
       service: microservice-configserver-config
+    depends_on:
+      loansdb:
+        condition: service_healthy
     healthcheck:
       test: "curl --fail --silent localhost:8090/actuator/health/readiness | grep UP || exit 1"
       interval: 10s
       timeout: 5s
       retries: 10
       start_period: 10s
-    depends_on:
-      loansdb:
-        condition: service_healthy
     environment:
       SPRING_APPLICATION_NAME: loans
       SPRING_DATASOURCE_URL: jdbc:mysql://loansdb:3306/loansdb
@@ -132,22 +132,22 @@ services:
     extends:
       file: common-config.yml
       service: microservice-configserver-config
+    depends_on:
+      cardsdb:
+        condition: service_healthy
     healthcheck:
       test: "curl --fail --silent localhost:9000/actuator/health/readiness | grep UP || exit 1"
       interval: 10s
       timeout: 5s
       retries: 10
       start_period: 10s
-    depends_on:
-      cardsdb:
-        condition: service_healthy
     environment:
       SPRING_APPLICATION_NAME: cards
       SPRING_DATASOURCE_URL: jdbc:mysql://cardsdb:3306/cardsdb
       
   gatewayserver:
     image: "cr1stal423/gatewayserver:v9"
-    container_name: "gatewayserver-ms"
+    container_name: gatewayserver-ms
     ports:
       - "8072:8072"
     environment:
@@ -164,6 +164,7 @@ services:
         condition: service_healthy
       cards:
         condition: service_healthy
+
 networks:
   eazybank-network:
     driver: "bridge"
