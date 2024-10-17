@@ -57,7 +57,7 @@ services:
       service: network-deploy-service
 
   configserver:
-    image: "cr1stal423/configserver:v9"
+    image: "cr1stal423/configserver:v10"
     container_name: "configserver-ms"
     ports:
       - "8071:8071"
@@ -74,7 +74,7 @@ services:
       file: common-config.yml
       service: microservice-base-config
   eurekaserver:
-    image: "cr1stal423/eurekaserver:v9"
+    image: "cr1stal423/eurekaserver:v10"
     container_name: "eurekaserver-ms"
     ports:
       - "8070:8070"
@@ -92,7 +92,7 @@ services:
         condition: service_healthy
 
   accounts:
-    image: "cr1stal423/accounts:v9"
+    image: "cr1stal423/accounts:v10"
     container_name: "accounts-ms"
     ports:
       - "8080:8080"
@@ -114,7 +114,7 @@ services:
 
 
   loans:
-    image: "cr1stal423/loans:v9"
+    image: "cr1stal423/loans:v10"
     container_name: "loans-ms"
     ports:
       - "8090:8090"
@@ -136,7 +136,7 @@ services:
 
 
   cards:
-    image: "cr1stal423/cards:v9"
+    image: "cr1stal423/cards:v10"
     container_name: "cards-ms"
     ports:
       - "9000:9000"
@@ -157,7 +157,7 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://cardsdb:3306/cardsdb
       
   gatewayserver:
-    image: "cr1stal423/gatewayserver:v9"
+    image: "cr1stal423/gatewayserver:v10"
     container_name: gatewayserver-ms
     ports:
       - "8072:8072"
