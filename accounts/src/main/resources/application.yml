@@ -5,6 +5,10 @@ spring:
     url: ${DATABASE_URL:jdbc:mysql://localhost:3306/accountsdb}
     username: ${SPRING_DATASOURCE_USERNAME:root}
     password: ${SPRING_DATASOURCE_PASSWORD:Sqlwer}
+  cloud:
+    openfeign:
+      circuitbreaker:
+        enabled: true
   jpa:
     hibernate:
       ddl-auto: ${HIBERNATE_DDL_AUTO:update}
@@ -66,4 +70,27 @@ logging:
     com:
       cr1stal423:
         accounts: DEBUG
+
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        sliding-window-size: 10
+        permitted-number-of-calls-in-half-open-state: 2
+        failure-rate-threshold: 50
+        wait-duration-in-open-state:
+          seconds: 10
+
+  retry:
+    configs:
+      default:
+        max-attempts: 3
+        wait-duration: 500
+        enable-exponential-backoff: true
+        exponential-backoff-multiplier: 2
+        ignore-exceptions:
+          - java.lang.NullPointerException
+          - java.lang.StackOverflowError
+        retry-exceptions:
+          - java.util.concurrent.TimeoutException
 

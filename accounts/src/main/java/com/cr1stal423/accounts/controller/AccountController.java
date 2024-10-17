@@ -6,6 +6,7 @@ import com.cr1stal423.accounts.dto.CustomerDto;
 import com.cr1stal423.accounts.dto.ErrorResponseDto;
 import com.cr1stal423.accounts.dto.ResponseDto;
 import com.cr1stal423.accounts.service.IAccountService;
+import io.github.resilience4j.retry.annotation.Retry;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -14,6 +15,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
@@ -22,13 +24,15 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.concurrent.TimeoutException;
+
 @RestController
 @RequestMapping(value = "/api",produces = {MediaType.APPLICATION_JSON_VALUE})
 @Valid
+@Slf4j
 public class AccountController {
     @Autowired
     private IAccountService iAccountService;
-
     @Value("${build.version}")
     private String buildVersion;
     @Autowired
@@ -158,11 +162,19 @@ public class AccountController {
                 .status(HttpStatus.EXPECTATION_FAILED)
                 .body(new ResponseDto(AccountsConstants.STATUS_417,AccountsConstants.MESSAGE_417_DELETE));
     }
+    @Retry(name = " fetchBuildVersion", fallbackMethod = "getBuildInfoFallback")
     @GetMapping("/build-info")
-    public ResponseEntity<String> fetchBuildVersion(){
+    public ResponseEntity<String> fetchBuildVersion() throws Throwable{
+        log.debug("Invoked fetchBuildVersion");
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(buildVersion);
+    }
+    public ResponseEntity<String> getBuildInfoFallback(Throwable throwable){
+        log.debug("Invoked getBuildInfoFallback");
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body("0.9");
     }
     @GetMapping("/java-version")
     public ResponseEntity<String> fetchJavaVersion(){

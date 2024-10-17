@@ -180,6 +180,7 @@ public class LoansController {
     }
     @GetMapping("/contact-info")
     public ResponseEntity<Object> fetchContactInfo(){
+        log.debug("Invoked fetchContactInfo");
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(loansContactInfoDto);
