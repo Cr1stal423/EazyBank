@@ -97,6 +97,16 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-registry-prometheus</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -119,7 +129,7 @@
 				<version>3.4.2</version>
 				<configuration>
 					<to>
-						<image>cr1stal423/${project.artifactId}:v10</image>
+						<image>cr1stal423/${project.artifactId}:v11</image>
 					</to>
 				</configuration>
 			</plugin>
