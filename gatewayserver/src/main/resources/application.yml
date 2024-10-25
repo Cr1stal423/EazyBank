@@ -12,6 +12,11 @@ spring:
       httpclient:
         connect-timeout: 1000
         response-timeout: 6s
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: "http://localhost:7080/realms/eazybank/protocol/openid-connect/certs"
   data:
     redis:
       connect-timeout: 2s
