@@ -51,12 +51,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                                                                                      WebRequest webRequest){
         ErrorResponseDto errorResponseDto = new ErrorResponseDto(
                 webRequest.getDescription(false),
-                HttpStatus.BAD_REQUEST,
+                HttpStatus.NOT_FOUND,
                 exception.getMessage(),
                 LocalDateTime.now()
 
         );
-        return new ResponseEntity<>(errorResponseDto,HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponseDto,HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(CustomerAlreadyExistsException.class)
@@ -64,10 +64,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                                                                                 WebRequest webRequest){
         ErrorResponseDto errorResponseDto = new ErrorResponseDto(
                 webRequest.getDescription(false),
-                HttpStatus.NOT_FOUND,
+                HttpStatus.BAD_REQUEST,
                 exception.getMessage(),
                 LocalDateTime.now()
         );
-        return new ResponseEntity<>(errorResponseDto,HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(errorResponseDto,HttpStatus.BAD_REQUEST);
     }
 }
