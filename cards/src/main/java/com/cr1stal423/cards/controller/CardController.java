@@ -66,7 +66,7 @@ public class CardController {
                                                       String mobileNumber){
         iCardsService.createCard(mobileNumber);
         return ResponseEntity
-                .status(HttpStatus.OK)
+                .status(HttpStatus.CREATED)
                 .body(new ResponseDto(CardsConstants.STATUS_201,CardsConstants.MESSAGE_201));
     }
 

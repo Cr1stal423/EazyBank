@@ -65,7 +65,7 @@ public class LoansController {
                                                           String mobileNumber){
         iLoansService.createLoan(mobileNumber);
         return ResponseEntity
-                .status(HttpStatus.OK)
+                .status(HttpStatus.CREATED)
                 .body(new ResponseDto(LoansConstants.STATUS_201,LoansConstants.MESSAGE_201));
     }
     @Operation(

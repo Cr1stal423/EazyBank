@@ -60,10 +60,10 @@ public class AccountController {
     }
     )
     @PostMapping("/create")
-    public ResponseEntity<ResponseDto> createAccount(@Valid@RequestBody CustomerDto customerDto){
+    public ResponseEntity<ResponseDto> createAccount(@Valid @RequestBody CustomerDto customerDto){
         iAccountService.createAccount(customerDto);
         return ResponseEntity
-                .status(HttpStatus.OK)
+                .status(HttpStatus.CREATED)
                 .body(new ResponseDto(AccountsConstants.STATUS_201,AccountsConstants.MESSAGE_201));
     }
     @Operation(
