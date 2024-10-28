@@ -78,7 +78,7 @@
 				<version>3.4.2</version>
 				<configuration>
 					<to>
-						<image>cr1stal423/${project.artifactId}:v12</image>
+						<image>cr1stal423/${project.artifactId}:v13</image>
 					</to>
 				</configuration>
 			</plugin>
