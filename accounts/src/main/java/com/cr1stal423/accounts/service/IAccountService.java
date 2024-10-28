@@ -33,4 +33,6 @@ public interface IAccountService {
      * @return true if the account is deleted successfully, false otherwise
      */
     boolean deleteAccount(String mobileNumber);
+
+    boolean updateCommunicationStatus(Long accountNumber);
 }
